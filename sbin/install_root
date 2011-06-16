@@ -25,7 +25,16 @@ chown 0:0 /system/xbin/su
 chmod 6755 /system/xbin/su
 rm -f /res/su
 
-mount -o remount,ro /
-mount -o remount,ro /dev/block/stl10 /system
+# overclocking stuff
+echo "1000000" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+echo "1000000" > /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq
+for blip in conf default.prop fota.rc init init.rc init.smdkc110.rc init.smdkc110.sh lib lpm.rc recovery.rc res sbin
+do
+	chown root.system /$blip
+	chown root.system /$blip/*
+done
+
+chown root.system /lib/modules/*
+chown root.system /res/images/*
 
 exit
