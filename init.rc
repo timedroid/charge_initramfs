@@ -124,10 +124,11 @@ loglevel 3
 	chown system system /data
 	chmod 0771 /data
 
-	mkdir /preinstall
-	mount rfs /dev/block/mmcblk0p2 /preinstall nosuid nodev check=no
-	chown system system /preinstall
-	chmod 0771 /preinstall
+# /preinstall is now a swap partition
+#	mkdir /preinstall
+#	mount rfs /dev/block/mmcblk0p2 /preinstall nosuid nodev check=no
+#	chown system system /preinstall
+#	chmod 0771 /preinstall
 
 	mkdir /dbdata
 	mount rfs /dev/block/stl11 /dbdata nosuid nodev check=no
@@ -343,6 +344,7 @@ on boot
 # Tweak background writeout
 	write /proc/sys/vm/dirty_expire_centisecs 800
 	write /proc/sys/vm/dirty_background_ratio 2
+	write /proc/sys/vm/swappiness 75
 
 # Permissions for System Server and daemons.
 	chown radio system /sys/android_power/state
@@ -461,6 +463,10 @@ service animate /sbin/animate
 
 # Do we want logcat enabled or not?
 service enable_logcat /sbin/enable_logcat
+	oneshot
+
+# Swap partition
+service add_swap /sbin/add_swap
 	oneshot
 
 # adbd is controlled by the persist.service.adb.enable system property
