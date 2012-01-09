@@ -110,11 +110,8 @@ loglevel 3
 
 	insmod /lib/modules/fsr.ko
 	insmod /lib/modules/fsr_stl.ko
-	insmod /lib/modules/rfs_glue.ko
-	insmod /lib/modules/rfs_fat.ko
 	insmod /lib/modules/j4fs.ko
 	insmod /lib/modules/storage.ko
-	insmod /lib/modules/Si4709_driver.ko
 	insmod /lib/modules/vibrator.ko
 	insmod /lib/modules/bthid.ko
 	insmod /lib/modules/param.ko
@@ -126,14 +123,11 @@ loglevel 3
 	insmod /lib/modules/nvstorage.ko
 
 on fs
-	mount rfs /dev/block/stl10 /system noatime ro check=no
-	exec /sbin/e2fsck -p /dev/block/stl10
-	mount ext4 /dev/block/stl10 /system noatime barrier=0 data=journal noauto_da_alloc
+	mount yaffs2 mtd@system /system
 
 # SEC_INTERNAL_STORAGE
 # mount internal stroage (moviNAND or iNand)
 	mkdir /data
-	mount rfs /dev/block/mmcblk0p1 /data noatime nosuid nodev check=no
 	exec /sbin/e2fsck -p /dev/block/mmcblk0p1
 	mount ext4 /dev/block/mmcblk0p1 /data noatime barrier=1 data=ordered noauto_da_alloc
 	chown system system /data
@@ -146,9 +140,7 @@ on fs
 #	chmod 0771 /preinstall
 
 	mkdir /dbdata
-	mount rfs /dev/block/stl11 /dbdata noatime nosuid nodev check=no
-	exec /sbin/e2fsck -p /dev/block/stl11
-	mount ext4 /dev/block/stl11 /dbdata noatime barrier=0 data=ordered nodelalloc noauto_da_alloc
+	mount yaffs2 mtd@datadata /dbdata
 	chown system system /dbdata
 	chmod 0771 /dbdata
 	chmod 0771 /dbdata
@@ -161,10 +153,9 @@ on fs
 	mkdir /dbdata/db-journal
 	chown system system /dbdata/db-journal
 	chmod 0777 /dbdata/db-journal
-	mount rfs /dev/block/mmcblk0p3 /cache noatime nosuid nodev check=no
 	exec /sbin/e2fsck -p /dev/block/mmcblk0p3
 	mount ext4 /dev/block/mmcblk0p3 /cache noatime barrier=0 data=writeback noauto_da_alloc
-	mount rfs /dev/block/stl3 /efs nosuid nodev check=no
+	mount yaffs2 mtd@etf /efs
 
 	chown radio radio /efs
 	chmod 0771 /efs

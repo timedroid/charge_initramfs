@@ -26,19 +26,11 @@ on init
 	mkdir /mnt/sdcard 0000 system system
 
 on early-fs
-	insmod /lib/modules/fsr.ko
-	insmod /lib/modules/fsr_stl.ko
-	insmod /lib/modules/rfs_glue.ko
-	insmod /lib/modules/rfs_fat.ko
-	insmod /lib/modules/j4fs.ko
-	insmod /lib/modules/param.ko
 	insmod /lib/modules/wtlfota_dpram.ko
-	insmod /lib/modules/param.ko
 
 on fs
 	mount tmpfs tmpfs /tmp
-	mount rfs /dev/block/stl10 /system check=no
-	mount ext4 /dev/block/stl10 /system noatime barrier=0 data=journal noauto_da_alloc
+	mount yaffs2 mtd@system /system
 
 	chown root root /sbin/fat.format
 	chmod 750 /sbin/fat.format
@@ -46,10 +38,8 @@ on fs
 # SEC_DMCRYPT for MC_CRYPT_ROOT before apply_disk_policy or apply_sec_devenc_init
 	chown radio system /efs
 	chmod 0771 /efs
-	mount rfs /dev/block/stl3 /efs nosuid nodev check=no
+	mount yaffs2 mtd@efs /efs
 
-	mkdir /mnt/.lfs 0755 root root
-	mount j4fs /dev/block/stl7 /mnt/.lfs
 
 on post-fs
 	mount rootfs rootfs / ro remount

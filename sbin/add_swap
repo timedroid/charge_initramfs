@@ -13,10 +13,10 @@ then
 	mkswap /dev/block/mmcblk0p2
 	swapon /dev/block/mmcblk0p2
 else
-	mount -t rfs /dev/block/mmcblk0p2 /preinstall
+	mount -t vfat /dev/block/mmcblk0p2 /preinstall
 	if $(mount | grep /dev/block/mmcblk0p2) == 1
 	then
 		fat.format -v -S 4096 -s 4 -F 32 /dev/block/mmcblk0p2
-		mount -t rfs /dev/block/mmcblk0p2 /preinstall
+		mount -t vfat /dev/block/mmcblk0p2 /preinstall
 	fi
 fi
