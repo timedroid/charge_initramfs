@@ -108,10 +108,6 @@ loglevel 3
 	chmod 0777 /dev/cpuctl/bg_non_interactive/tasks
 	write /dev/cpuctl/bg_non_interactive/cpu.shares 192
 
-	insmod /lib/modules/fsr.ko
-	insmod /lib/modules/fsr_stl.ko
-	insmod /lib/modules/j4fs.ko
-	insmod /lib/modules/storage.ko
 	insmod /lib/modules/vibrator.ko
 	insmod /lib/modules/bthid.ko
 	insmod /lib/modules/param.ko
@@ -120,7 +116,6 @@ loglevel 3
 	insmod /lib/modules/svnet.ko
 	insmod /lib/modules/modemctl.ko
 	insmod /lib/modules/dpram.ko
-	insmod /lib/modules/nvstorage.ko
 
 on fs
 	mount yaffs2 mtd@system /system
