@@ -8,7 +8,7 @@ on init
 	export ANDROID_DATA /data
 	export EXTERNAL_STORAGE /mnt/sdcard
 
-	symlink /system/etc /etc
+	#symlink /system/etc /etc
 
 	mkdir /sdcard
 	mkdir /preinstall
@@ -62,7 +62,7 @@ on boot
 service ueventd /sbin/ueventd
 	critical
 
-service console /system/bin/sh
+service console /sbin/sh
 	console
 
 service recovery /sbin/start_recovery
