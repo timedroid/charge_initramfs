@@ -160,7 +160,7 @@ setup_links()
 	ln -s /sbin/recovery $1/yes
 	ln -s /sbin/recovery $1/zcat
 }
-
+mount -o remount,rw /
 setup_links /sbin
 if [ ! -e /system/bin/sh ]
 then
