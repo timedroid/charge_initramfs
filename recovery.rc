@@ -66,6 +66,8 @@ service console /sbin/sh
 	console
 
 service recovery /sbin/start_recovery
+	console
+	oneshot
 
 service adbd /sbin/adbd recovery
 #	disabled

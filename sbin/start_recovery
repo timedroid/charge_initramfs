@@ -162,12 +162,6 @@ setup_links()
 }
 mount -o remount,rw /
 setup_links /sbin
-if [ ! -e /system/bin/sh ]
-then
-	mkdir /system/bin
-	setup_links /system/bin
-	ln -s /sbin/recovery /system/bin/sh
-fi
 
 mkdir -p /etc
 cp /sbin/recovery.fstab /etc/recovery.fstab
@@ -175,4 +169,4 @@ cp /sbin/recovery.fstab /etc/recovery.fstab
 umount -l /system
 
 # run the actual recovery
-recovery &
+recovery
