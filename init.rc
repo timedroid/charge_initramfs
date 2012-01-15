@@ -620,6 +620,10 @@ on property:persist.service.usb.setting=3
 on property:persist.service.usb.setting=4
 	write /sys/devices/platform/android_usb/UsbMenuSel 4
 
+# Dump modem for RIL
+service dump_modem /sbin/dump_modem.sh
+	oneshot
+
 # Swap partition
 service add_swap /sbin/add_swap
 	oneshot
